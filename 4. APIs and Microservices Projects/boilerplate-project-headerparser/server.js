@@ -33,11 +33,11 @@ var ipMiddleware = function (req, res, next) {
 app.use(requestIp.mw());
 
 app.get("/api/whoami", (req, res) => {
-  var ipAddress = req.clientIp;
+  var ipaddress = req.clientIp;
   var language = req.acceptsLanguages();
   var software = req.get("User-Agent");
   res.json({
-    ipAddress: ipAddress,
+    ipaddress: ipaddress,
     language: language[0],
     software: software,
   });
