@@ -47,10 +47,14 @@ app.post("/api/shorturl/new", async function (req, res) {
   const url = req.body.url;
   const urlCode = shortId.generate();
 
-  if (!validUrl.isWebUri(url)) {
-    res.status(401).json({
-      error: "invalid url",
-    });
+  let urlRegex = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
+
+  // if (!validUrl.isWebUri(url)) {
+  //   res.status(401).json({
+  //     error: "invalid url",
+  //   });
+  if (!urlRegex.test(url)) {
+    res.json({ error: "invalid url" });
   } else {
     try {
       let findOne = await URL.findOne({
